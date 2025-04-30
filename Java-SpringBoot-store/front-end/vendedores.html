@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSys Gestión - Vendedores</title>
+    <link rel="stylesheet" href="css/gestion-pedidos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">CyberSys<span class="highlight">_</span></div>
+            <div class="menu-item">
+                <a href="index.html">Inicio</a>
+            </div>
+            <div class="menu-item">
+                <a href="cliente.html">Clientes</a>
+            </div>
+            <div class="menu-item">
+                <a href="vendedores.html" class="active">Vendedores</a>
+            </div>
+            <div class="menu-item">
+                <a href="productos.html">Productos</a>
+            </div>
+            <div class="menu-item">
+                <a href="pedidos.html">Pedidos</a>
+            </div>
+            <div class="menu-item">
+                <a href="detalles-pedido.html">Detalles de Pedido</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Gestión de Vendedores</h1>
+            </div>
+            <div class="card">
+                <div class="search-container">
+                    <form id="search-form" class="search-form">
+                        <select id="search-type" class="search-select">
+                            <option value="id">Buscar por ID</option>
+                            <option value="name">Buscar por Nombre</option>
+                        </select>
+                        <input type="text" id="search-input" class="search-input" placeholder="Buscar vendedor...">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button type="button" class="btn btn-secondary" onclick="fetchTraders()">Mostrar Todos</button>
+                    </form>
+                    <button class="btn btn-success" id="add-trader">Agregar Vendedor +</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="traders-list">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="add-trader-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="toggleTraderForm()">&times;</span>
+                    <h3 id="titulo-trader">Agregar Nuevo Vendedor</h3>
+                    <form id="trader-form" class="form">
+                        <input type="hidden" id="trader-id" name="trader-id">
+                        <div class="form-group">
+                            <label for="trader-name">Nombre:</label>
+                            <input type="text" id="trader-name" name="trader-name" placeholder="Ingrese el nombre" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="submit-trader-btn">Guardar</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleTraderForm()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Js/trader.js"></script>
+</body>
+</html>

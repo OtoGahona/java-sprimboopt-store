@@ -1,0 +1,577 @@
+/* --- Reset y Variables --- */
+:root {
+    --bg-color-dark: #0d0d2b; /* Azul muy oscuro casi negro */
+    --bg-color-medium: #1a1a3a; /* Azul oscuro */
+    --bg-color-light: #2a2a4a; /* Azul grisáceo */
+    --primary-purple: #8A2BE2; /* Azul Violeta */
+    --secondary-purple: #DA70D6; /* Orquídea */
+    --primary-blue: #00BFFF; /* Azul Cielo Profundo */
+    --secondary-blue: #4169E1; /* Azul Real */
+    --neon-magenta: #ff00ff;
+    --neon-cyan: #00ffff;
+    --text-color: #e0e0e0; /* Blanco grisáceo */
+    --text-highlight: #ffffff;
+    --border-color: rgba(0, 191, 255, 0.3); /* Azul Cielo translúcido */
+    --input-bg: #101025; /* Azul muy oscuro para inputs */
+    --card-bg: rgba(26, 26, 58, 0.85); /* Azul oscuro translúcido */
+    --modal-bg: rgba(13, 13, 43, 0.95); /* Azul muy oscuro casi opaco */
+    --danger-color: #ff4d4d; /* Rojo neón */
+    --warning-color: #ffa500; /* Naranja neón */
+    --success-color: #39ff14; /* Verde neón */
+
+    --font-primary: 'Orbitron', sans-serif;
+    --font-secondary: 'Share Tech Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color);
+    font-family: var(--font-secondary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+        linear-gradient(rgba(0, 191, 255, 0.04) 1px, transparent 1px), /* Grid azul */
+        linear-gradient(90deg, rgba(138, 43, 226, 0.04) 1px, transparent 1px); /* Grid morado */
+    background-size: 25px 25px;
+    position: relative;
+}
+
+/* --- Efecto Scanlines Sutil --- */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+    background-size: 100% 3px;
+    z-index: -1;
+    pointer-events: none;
+    animation: scanline-animation 0.2s linear infinite;
+}
+
+@keyframes scanline-animation {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 3px; }
+}
+
+/* --- Layout Principal y Contenedor --- */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Sidebar (Navegación) --- */
+.sidebar {
+    width: 230px;
+    background-color: var(--bg-color-medium);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    position: fixed;
+    height: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-header {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-size: 1.5em;
+    color: var(--primary-blue);
+    text-shadow: 0 0 5px var(--primary-blue);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header .highlight {
+    color: var(--secondary-purple);
+    animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+50% { opacity: 0; }
+}
+
+.menu-item {
+    margin-bottom: 5px;
+}
+
+.menu-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    padding: 12px 20px;
+    font-family: var(--font-secondary);
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.menu-item a::before { /* Efecto hover sutil */
+    content: '>';
+    position: absolute;
+    left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--neon-cyan);
+}
+
+.menu-item a:hover,
+.menu-item a.active { /* Estado activo se manejará añadiendo la clase 'active' */
+    background-color: rgba(0, 191, 255, 0.1);
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    border-left-color: var(--neon-cyan);
+}
+
+.menu-item a:hover::before,
+.menu-item a.active::before {
+    opacity: 1;
+}
+
+/* --- Contenido Principal --- */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    margin-left: 230px; /* Mismo ancho que el sidebar */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* --- Header de Sección --- */
+.header { /* Estilo para el div .header dentro de cada sección */
+    background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+    color: var(--text-highlight);
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+}
+
+.header h1 {
+    font-family: var(--font-primary);
+    font-size: 1.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* --- Cards --- */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); /* Sombra morada sutil */
+    backdrop-filter: blur(2px);
+}
+
+.card h2 { /* Para el h2 de bienvenida en index.html */
+    font-family: var(--font-primary);
+    color: var(--secondary-purple);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* --- Formulario de Búsqueda y Toolbar --- */
+.search-container { /* Contenedor del formulario de búsqueda */
+    display: flex;
+    justify-content: space-between; /* Ajusta según necesidad */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: rgba(0, 191, 255, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-grow: 1;
+    min-width: 300px;
+}
+
+/* --- Formularios y Entradas --- */
+.search-input,
+.search-select,
+.form-group input,
+.form-group select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px 12px;
+    font-family: var(--font-secondary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    border-radius: 0; /* Estilo más angular */
+}
+
+.search-input:focus,
+.search-select:focus,
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.search-input {
+    flex-grow: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary-blue);
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+/* --- Botones --- */
+.btn {
+    background: none;
+    border: 1px solid var(--primary-blue);
+    color: var(--primary-blue);
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0; /* Estilo angular */
+}
+
+.btn:hover {
+    background-color: rgba(0, 191, 255, 0.15);
+    box-shadow: 0 0 12px var(--primary-blue);
+    color: var(--neon-cyan);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Colores específicos de botones */
+.btn-primary { /* Buscar, Guardar */
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+.btn-primary:hover {
+    background-color: var(--primary-blue);
+    color: var(--bg-color-dark);
+}
+
+.btn-secondary { /* Mostrar Todos, Cancelar */
+    border-color: var(--secondary-purple);
+    color: var(--secondary-purple);
+}
+.btn-secondary:hover {
+    background-color: var(--secondary-purple);
+    color: var(--bg-color-dark);
+    box-shadow: 0 0 12px var(--secondary-purple);
+}
+
+.btn-success { /* Agregar */
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+.btn-success:hover {
+    background-color: var(--success-color);
+    color: var(--bg-color-dark);
+    box-shadow: 0 0 12px var(--success-color);
+}
+
+.btn-danger { /* Eliminar */
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+.btn-danger:hover {
+    background-color: var(--danger-color);
+    color: var(--bg-color-dark);
+    box-shadow: 0 0 12px var(--danger-color);
+}
+
+.btn-warning { /* Desactivar */
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+}
+.btn-warning:hover {
+    background-color: var(--warning-color);
+    color: var(--bg-color-dark);
+    box-shadow: 0 0 12px var(--warning-color);
+}
+
+/* --- Tablas --- */
+.table-responsive { /* Añade este contenedor si la tabla necesita scroll */
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+th {
+    background-color: rgba(0, 191, 255, 0.1);
+    color: var(--primary-blue);
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+tr:hover {
+    background-color: rgba(138, 43, 226, 0.08); /* Hover morado muy sutil */
+}
+
+td .btn { /* Botones dentro de celdas */
+    padding: 5px 10px;
+    font-size: 0.8em;
+    margin-right: 5px;
+    margin-bottom: 3px; /* Espacio si se apilan en móvil */
+}
+
+/* --- Modales --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    /* Asegura que el display:flex funcione para centrar */
+    /* Se activa/desactiva con JS cambiando display a 'flex' o 'none' */
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    margin: auto; /* Necesario para centrado con flex */
+    padding: 30px;
+    border: 1px solid var(--primary-purple);
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 0 25px var(--primary-purple);
+    position: relative;
+    animation: fadeInModal 0.4s ease-out;
+    border-radius: 0; /* Estilo angular */
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content h3 {
+    font-family: var(--font-primary);
+    color: var(--secondary-purple);
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 1px dashed var(--secondary-purple);
+    padding-bottom: 10px;
+}
+
+.close { /* Botón 'X' para cerrar modal */
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--neon-magenta);
+    text-decoration: none;
+    transform: rotate(180deg);
+}
+.close:active {
+    transform: rotate(360deg);
+}
+/* --- Mensajes de Éxito/Error --- */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-family: var(--font-secondary);
+    font-size: 0.9em;
+}
+.alert-success {
+    background-color: rgba(57, 255, 20, 0.1);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+.alert-error {
+    background-color: rgba(255, 77, 77, 0.1);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+.alert-warning {
+    background-color: rgba(255, 165, 0, 0.1);
+    color: var(--warning-color);
+    border: 1px solid var(--warning-color);
+}
+.alert-info {
+    background-color: rgba(0, 191, 255, 0.1);
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- Responsividad --- */
+
+/* Ajustes para tablets y pantallas medianas */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%); /* Oculto por defecto */
+        /* Se necesitará JS para un botón que lo muestre/oculte */
+    }
+
+    .main-content {
+        margin-left: 0; /* Ocupa todo el ancho */
+    }
+
+    /* Si se implementa un botón para mostrar/ocultar sidebar */
+    /* .sidebar.open { transform: translateX(0); } */
+    /* .main-content.shifted { margin-left: 230px; } */
+
+    .header h1 {
+        font-size: 1.6em;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-form {
+        width: 100%;
+    }
+    .search-container .btn-success { /* Botón Agregar */
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1 {
+        font-size: 1.4em;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    th, td {
+        padding: 10px 8px;
+        font-size: 0.9em;
+        white-space: normal; /* Permite que el texto se ajuste */
+    }
+
+    td .btn {
+        display: inline-block; /* Vuelven a inline */
+        margin-right: 4px;
+        margin-bottom: 4px;
+        padding: 4px 8px;
+        font-size: 0.75em;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-content h3 {
+        font-size: 1.2em;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+    .form-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Ocultar sidebar por completo en móvil, requiere botón toggle */
+    .sidebar {
+        /* Ya está oculto por transform: translateX(-100%); */
+        /* Se necesita un botón para activarlo */
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+     /* Estilo para cuando el sidebar esté abierto en móvil */
+    /* .sidebar.open { transform: translateX(0); } */
+
+}
+
+/* --- Clases Utilitarias --- */
+.text-center { text-align: center; }
+.mb-3 { margin-bottom: 1rem; }
+
+/* Para asegurar que los modales funcionen con display:flex */
+.modal.active {
+    display: flex;
+}

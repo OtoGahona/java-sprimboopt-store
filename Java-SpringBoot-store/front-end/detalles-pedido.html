@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSys Gestión - Detalles de Pedido</title>
+    <link rel="stylesheet" href="css/gestion-pedidos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">CyberSys<span class="highlight">_</span></div>
+            <div class="menu-item">
+                <a href="index.html">Inicio</a>
+            </div>
+            <div class="menu-item">
+                <a href="cliente.html">Clientes</a>
+            </div>
+            <div class="menu-item">
+                <a href="vendedores.html">Vendedores</a>
+            </div>
+            <div class="menu-item">
+                <a href="productos.html">Productos</a>
+            </div>
+            <div class="menu-item">
+                <a href="Pedidos.html">Pedidos</a>
+            </div>
+            <div class="menu-item">
+                <a href="detalles-pedido.html" class="active">Detalles de Pedido</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Gestión de Detalles de Pedidos</h1>
+            </div>
+            <div class="card">
+                <div class="search-container">
+                    <form id="search-form" class="search-form">
+                        <select id="search-type" class="search-select">
+                            <option value="id">Buscar por ID</option>
+                            <option value="product">Buscar por Producto</option>
+                        </select>
+                        <input type="text" id="search-input" class="search-input" placeholder="Buscar detalle de pedido...">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button type="button" id="loadOrderProductsButton" class="btn btn-secondary" onclick="loadOrderProducts()">Mostrar Todos</button>
+                    </form>
+                    <button class="btn btn-success" id="addOrderProductButton">Agregar Detalle +</button>
+                    </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th> <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderProductsTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="orderProductModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h3 id="modalTitle">Agregar Nuevo Detalle de Pedido</h3>
+                    <form id="orderProductForm" class="form">
+                        <input type="hidden" id="orderProductId" name="orderProductId">
+                        <div class="form-group">
+                            <label for="order">ID del Pedido:</label>
+                            <input type="number" id="order" name="order" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product">ID del Producto:</label>
+                            <input type="number" id="product" name="product" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Cantidad:</label>
+                            <input type="number" id="quantity" name="quantity" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Precio Unitario:</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="saveButton" class="btn btn-primary">Guardar</button>
+                            <button type="button" id="cancelOrderProductButton" class="btn btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Js/orderProduct.js"></script>
+</body>
+</html>
